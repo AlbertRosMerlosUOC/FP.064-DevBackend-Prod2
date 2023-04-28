@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  web:
+    image: php:apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fp064_p2
+      MYSQL_USER: devbackend
+      MYSQL_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
+
+name: fp064-p2
