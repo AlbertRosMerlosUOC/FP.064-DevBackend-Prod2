@@ -22,7 +22,7 @@ require './config/database.php';
 
     <h1>Editando formulario</h1>
 
-    <form method="POST" id="editar_acto_form">
+    <form action="models/actos.php" method="POST" id="editar_acto_form">
     <label>Fecha:</label>
     <input type="datetime-local" name="Fecha" id="Fecha" required><br>
 
