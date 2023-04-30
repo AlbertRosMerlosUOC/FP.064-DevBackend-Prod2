@@ -1,8 +1,7 @@
 <?php
     session_start();
-
-    require_once '../models/Acto.php';
-    require_once '../controllers/ActoCo.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/models/Acto.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/ActoCo.php';
 
     $acto = new ActoCo($conn);
     $actos = $acto->getAll();
@@ -13,7 +12,7 @@
         <thead>
             <tr>
                 <td align="left" colspan="6"><h1>Actos existentes</h1></td>
-                <td><a href="admin/actosNuevo.php"><button class="btn btn-success"><i class="fa fa-plus fa-lg"></i>&nbsp;Crear acto</button></a></td>
+                <td><a href="/views/admin/actosNuevo.php"><button class="btn btn-success"><i class="fa fa-plus fa-lg"></i>&nbsp;Crear acto</button></a></td>
             </tr>
         </thead>
         <thead style="background-color: #E9ECEF;">
@@ -54,3 +53,9 @@
     </table>
 </div>
 
+<script>
+        function editarActo(id) {
+            var url = "/views/admin/actosEditar.php?id=" + id;
+            window.location.href = url;
+        }
+    </script>

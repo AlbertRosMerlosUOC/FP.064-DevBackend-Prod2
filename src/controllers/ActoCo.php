@@ -1,5 +1,5 @@
 <?php
-    require_once '../models/Acto.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/models/Acto.php';
     class ActoCo {
         private $conn;
 
@@ -12,6 +12,23 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function getById($id_acto) {
+            try {
+                $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Id_acto = :id_acto");
+                $stmt->bindParam(':id_acto', $id_acto);
+                $stmt->execute();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($row) {
+                    return new Acto($row['Id_acto'], $row['Fecha'], $row['Hora'], $row['Titulo'], $row['Descripcion_corta'], $row['Descripcion_larga'], $row['Num_asistentes'], $row['Id_tipo_acto']);
+                } else {
+                    return null;
+                }
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+        
 
         public function insert($fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto) {
             try {

@@ -5,7 +5,8 @@ body{
     text-align: center;
 }
 
-input[type="text"], input[type="password"]{
+.formLogin > input[type="text"], 
+.formLogin > input[type="password"] {
     outline: none;
     padding: 20px;
     display: block;
@@ -50,4 +51,34 @@ header a{
 header a:hover{
     color: #f30707;
     transition: .6s;
+}
+
+span.required {
+    color: #AA0000;
+    cursor: help;
+}
+
+.form-label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+
+.form-group  {
+    text-align: left !important;
+}
+
+textarea {
+    resize: none !important;
 }
