@@ -1,7 +1,6 @@
 <?php
     session_start();
 
-    require_once '../config/database.php';
     require_once '../models/Acto.php';
     require_once '../controllers/ActoCo.php';
 

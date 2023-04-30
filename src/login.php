@@ -1,31 +1,7 @@
 <?php
     session_start();
-    require_once './config/database.php';
-
-    if(!empty($_POST['email']) && !empty($_POST['password'])):
-        $records = $conn->prepare('SELECT Id_persona, email, password, Tipo_us FROM personas WHERE email=:email');
-        $records->bindParam(':email', $_POST['email']);
-        $records->execute();
-        $results = $records->fetch(PDO::FETCH_ASSOC);
-        $message = '';
-
-        if(is_array($results) && count($results) > 0 && password_verify($_POST['password'], $results['password']) ) {
-            $_SESSION['Id_persona'] = $results['Id_persona'];
-            
-            $tipo_us = $results['Tipo_us'];
-
-            if ($tipo_us == 1) {
-                header("Location: /views/usuario.php");
-            } else if ($tipo_us == 2) {
-                header("Location: /views/admin.php");
-            } else if ($tipo_us == 3) {
-                header("Location: /views/ponente.php");
-            }
-        } else {
-            $message = 'Sorry, those credentials do not match';
-        }
-    endif;  
-
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/php/login.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +18,6 @@
     </head>
 
     <body>
-        <?php require_once 'views/partials/header.php' ?>
-
         <h1> Login </h1>
         <span>or <a href="signup.php">SignUp</a></span>
 

@@ -1,21 +1,21 @@
 <?php
-require './config/database.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
 
-$message = '';
+    $message = '';
 
-if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    $sql = "INSERT INTO personas (email, password) VALUES (:email, :password)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email', $_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $stmt->bindParam(':password', $password);
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
+        $sql = "INSERT INTO personas (email, password) VALUES (:email, :password)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $_POST['email']);
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $stmt->bindParam(':password', $password);
 
-    if ($stmt->execute()) {
-        $message = 'Successfully created new user';
-    } else {
-        $message = 'Sorry there must have been an issue creating your account';
+        if ($stmt->execute()) {
+            $message = 'Successfully created new user';
+        } else {
+            $message = 'Sorry there must have been an issue creating your account';
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +33,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 </head>
 
 <body>
-    <?php require 'views/partials/header.php' ?>
-
     <?php if (!empty($message)): ?>
         <p>
             <?= $message ?>

@@ -1,21 +1,7 @@
 <?php
     session_start();
-
-    require './config/database.php';
-
-    if (isset($_SESSION['Id_persona'])) {
-        $records = $conn->prepare('SELECT Id_persona, email, password FROM personas WHERE Id_persona=:id');
-        $records->bindParam(':id', $_SESSION['Id_persona']);
-        $records->execute();
-        $results = $records->fetch(PDO::FETCH_ASSOC);
-
-        $user = null;
-
-        if (count($results) > 0) {
-            $user = $results;
-        }
-    }
-
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/php/controlUsuario.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +19,11 @@
 
 <body>
 
-
     <?php if (!empty($user)): ?>
         <br> Welcome.
         <?= $user['email']; ?>
         <br>You are Successfully Logged In
-        <a href="logout.php">Logout</a>
+        <a href="php/logout.php">Logout</a>
     <?php else: ?>
         <h1> Please Login or SingUp </h1>
         <a href="login.php">Login</a> or

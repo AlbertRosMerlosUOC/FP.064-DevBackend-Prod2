@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     require_once '../../config/database.php';
 
     // Verificar si el usuario ha iniciado sesión como administrador
@@ -38,7 +37,7 @@
         <link rel="stylesheet" href="../assets/css/style.css">
     </head>
     <body>
-        <?php require '../partials/header.php' ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/header.php' ?>
         <h1>Crear Nuevo Acto</h1>
         <form action="models/actos.php" method="POST">
             <label>Fecha:</label>
