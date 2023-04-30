@@ -1,7 +1,7 @@
 <?php
         session_start();
 
-        require './config/database.php';
+        require '../config/database.php';
 
         $records = $conn->prepare('SELECT Id_acto, Fecha, Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes FROM actos');
         $records->execute();

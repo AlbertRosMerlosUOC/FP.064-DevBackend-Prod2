@@ -1,5 +1,5 @@
 # Imagen base
-FROM php:7.2-apache
+FROM php:7.4-apache
 
 # Instalar controlador PDO para MySQL
 RUN docker-php-ext-install pdo pdo_mysql

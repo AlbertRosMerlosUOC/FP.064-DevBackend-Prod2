@@ -1,8 +1,8 @@
 version: '3'
+
 services:
   php:
-    image: prod2php
-    container_name: LoginP2
+    image: fp064-p2-i-php
     restart: always
     ports:
       - "8080:80"
@@ -10,6 +10,9 @@ services:
       - ./src:/var/www/html
     depends_on:
       - mysql
+    environment:
+      - TZ=Europe/Madrid
+
   mysql:
     image: mysql:5.7
     environment:
@@ -17,9 +20,12 @@ services:
       MYSQL_DATABASE: LoginP2
     volumes:
       - ./mysql:/var/lib/mysql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
       - "8181:80"
     environment:
       PMA_HOST: mysql
+
+name: fp064-p2

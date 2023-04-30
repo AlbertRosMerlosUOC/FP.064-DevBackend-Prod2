@@ -1,20 +1,20 @@
 <?php
-session_start();
+    session_start();
 
-require './config/database.php';
+    require './config/database.php';
 
-if (isset($_SESSION['Id_persona'])) {
-    $records = $conn->prepare('SELECT Id_persona, email, password FROM personas WHERE Id_persona=:id');
-    $records->bindParam(':id', $_SESSION['Id_persona']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
+    if (isset($_SESSION['Id_persona'])) {
+        $records = $conn->prepare('SELECT Id_persona, email, password FROM personas WHERE Id_persona=:id');
+        $records->bindParam(':id', $_SESSION['Id_persona']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    $user = null;
+        $user = null;
 
-    if (count($results) > 0) {
-        $user = $results;
+        if (count($results) > 0) {
+            $user = $results;
+        }
     }
-}
 
 ?>
 <!DOCTYPE html>
@@ -33,7 +33,6 @@ if (isset($_SESSION['Id_persona'])) {
 
 <body>
 
-    <?php require 'partials/header.php' ?>
 
     <?php if (!empty($user)): ?>
         <br> Welcome.
@@ -42,11 +41,11 @@ if (isset($_SESSION['Id_persona'])) {
         <a href="logout.php">Logout</a>
     <?php else: ?>
         <h1> Please Login or SingUp </h1>
-
         <a href="login.php">Login</a> or
         <a href="signup.php">SignUp</a>
     <?php endif; ?>
 
+    
 
 </body>
 

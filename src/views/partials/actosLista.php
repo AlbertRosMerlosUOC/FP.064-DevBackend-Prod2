@@ -1,0 +1,57 @@
+<?php
+    session_start();
+
+    require_once '../config/database.php';
+    require_once '../models/Acto.php';
+    require_once '../controllers/ActoCo.php';
+
+    $acto = new ActoCo($conn);
+    $actos = $acto->getAll();
+?>
+
+<div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+    <table class="table table-hover" style="width: 70%;">
+        <thead>
+            <tr>
+                <td align="left" colspan="6"><h1>Actos existentes</h1></td>
+                <td><a href="admin/actosNuevo.php"><button class="btn btn-success"><i class="fa fa-plus fa-lg"></i>&nbsp;Crear acto</button></a></td>
+            </tr>
+        </thead>
+        <thead style="background-color: #E9ECEF;">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Nº asistentes</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                if (count($actos) > 0) {
+                    foreach ($actos as $reg) {
+                        echo "<tr>
+                                <td>". $reg["Id_acto"] . "</th>
+                                <td>". $reg['Fecha'] . "</td>
+                                <td>". $reg['Hora'] . "</td>
+                                <td align='left'>". $reg['Titulo'] . "</td>
+                                <td align='left'>". $reg['Descripcion_corta'] . "</td>
+                                <td>". $reg['Num_asistentes'] . "</td>
+                                <td>
+                                    <button class=\"btn btn-primary\" onclick='editarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-edit fa-lg\"></i></button>
+                                    <button class=\"btn btn-danger\"  onclick='eliminarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-trash-o fa-lg\"></i></button>
+                                </td>
+                            </tr>";
+                    }
+                } else {
+                    echo "<tr>
+                            <td colspan='8'>No existen actos creados</td>
+                        </tr>";
+                }
+            ?>
+        </tbody>
+    </table>
+</div>
+

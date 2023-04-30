@@ -33,7 +33,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 </head>
 
 <body>
-    <?php require 'partials/header.php' ?>
+    <?php require 'views/partials/header.php' ?>
 
     <?php if (!empty($message)): ?>
         <p>
