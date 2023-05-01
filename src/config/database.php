@@ -1,5 +1,4 @@
 <?php
-
     $username = "root";
     $password = "Login";
     $database = "Word";
@@ -13,5 +12,4 @@
     } catch (PDOException $e) {
         die("Connection failed: " . $e->getMessage());
     }
-
 ?>

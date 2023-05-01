@@ -15,7 +15,7 @@
     </head>
     <body>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/header.php' ?>
-        <h1 style="margin-bottom: 15px;">Editar acto</h1>
+        <h1 style="margin-bottom: 15px; padding-top: 8px;">Editar acto</h1>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/actosForm.php' ?>
     </body>
 </html>
