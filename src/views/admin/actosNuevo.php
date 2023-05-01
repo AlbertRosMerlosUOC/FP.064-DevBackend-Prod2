@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/php/controlUsuario.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
     $action = 'actoInsert';
     $actionText = 'Crear';
 ?>

@@ -13,12 +13,11 @@
     }
 
     // Función para agregar un nuevo usuario a la base de datos
-    public function addPersona($username, $email, $password) {
+    public function addPersona($username, $User, $password) {
         $db = new Database();
         $conn = $db->getConnection();
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
-        $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":email", $email);
+        $stmt = $conn->prepare("INSERT INTO users (User, password) VALUES (:User, :password)");
+        $stmt->bindParam(":User", $User);
         $stmt->bindParam(":password", $password);
         $stmt->execute();
     }

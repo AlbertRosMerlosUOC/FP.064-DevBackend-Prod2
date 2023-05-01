@@ -1,8 +1,8 @@
 <?php
-    if(!empty($_POST['email']) && !empty($_POST['password'])):
+    if(!empty($_POST['User']) && !empty($_POST['password'])):
         // TODO Recoger datos de PersonaCo
-        $records = $conn->prepare('SELECT Id_persona, email, password, Tipo_us FROM personas WHERE email=:email');
-        $records->bindParam(':email', $_POST['email']);
+        $records = $conn->prepare('SELECT Id_persona, User, password, Id_tipo_usuario FROM personas WHERE User=:User');
+        $records->bindParam(':User', $_POST['User']);
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
         $message = '';
@@ -10,13 +10,13 @@
         if(is_array($results) && count($results) > 0 && password_verify($_POST['password'], $results['password']) ) {
             $_SESSION['Id_persona'] = $results['Id_persona'];
             
-            $tipo_us = $results['Tipo_us'];
+            $Id_tipo_usuario = $results['Id_tipo_usuario'];
 
-            if ($tipo_us == 1) {
+            if ($Id_tipo_usuario == 1) {
                 header("Location: /views/usuario.php");
-            } else if ($tipo_us == 2) {
-                header("Location: /views/admin.php");
-            } else if ($tipo_us == 3) {
+            } else if ($Id_tipo_usuario == 2) {
+                header("Location: /views/actos.php");
+            } else if ($Id_tipo_usuario == 3) {
                 header("Location: /views/ponente.php");
             }
         } else {

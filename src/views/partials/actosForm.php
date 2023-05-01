@@ -61,7 +61,7 @@
 
 <script>
     function cancelar() {
-        var url = "/views/admin.php";
+        var url = "/views/actos.php";
         window.location.href = url;
     }
 </script>

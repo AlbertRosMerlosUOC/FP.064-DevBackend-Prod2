@@ -7,7 +7,7 @@
 <html lang="en">
 
     <head>
-        <title>Administración: <?=$user['email'] ?></title>
+        <title>Administración de actos</title>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/includes.php' ?>
     </head>
 
