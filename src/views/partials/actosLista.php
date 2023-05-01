@@ -58,4 +58,9 @@
             var url = "/views/admin/actosEditar.php?id=" + id;
             window.location.href = url;
         }
+
+        function eliminarActo(id){
+            var url = "/views/admin/actosEliminar.php?id=" + id;
+            window.location.href = url;
+        }
     </script>

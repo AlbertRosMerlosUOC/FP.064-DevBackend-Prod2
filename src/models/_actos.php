@@ -33,6 +33,15 @@
         $actos->update($id, $fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto);
     }
 
+    if(isset($_POST['eliminar_acto'])) {
+        // Obtener los datos del formulario
+        $id = $_POST['Id_acto'];
+
+        // Crear una instancia de la clase Actos y llamar a su método delete()
+        $actos = new Actos();
+        $actos->delete($id);
+    }
+
     class Actos {
         private $conn;
 
@@ -83,6 +92,22 @@
                 // Ejecutar la consulta
                 $stmt->execute();
                 echo "Acto actualizado correctamente en la base de datos.";
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function delete($id) {
+            try {
+                // Preparar la consulta
+                $stmt = $this->conn->prepare("DELETE FROM actos WHERE Id_acto = :id");
+
+                // Bind parameters
+                $stmt->bindParam(':id', $id);
+
+                // Ejecutar la consulta
+                $stmt->execute();
+                echo "Acto eliminado correctamente de la base de datos.";
             } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
