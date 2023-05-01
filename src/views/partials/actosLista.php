@@ -7,11 +7,11 @@
     $actos = $acto->getAll();
 ?>
 
-<div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+<div class="px-3 py-5" style="width: 100%; display: flex; justify-content: center; align-items: center;">
     <table class="table table-hover" style="width: 70%;">
         <thead>
             <tr>
-                <td align="left" colspan="6"><h1>Actos existentes</h1></td>
+                <td align="left" colspan="6"><h1 class="pb-2 border-bottom" style="text-align: left;">Gestión de actos</h1></td>
                 <td><a href="/views/admin/actosNuevo.php"><button class="btn btn-success"><i class="fa fa-plus fa-lg"></i>&nbsp;Crear acto</button></a></td>
             </tr>
         </thead>
