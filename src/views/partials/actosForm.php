@@ -9,7 +9,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
     <form action="/models/_actos.php" method="POST" style="width: 450px;">
-        <input type="hidden" id="Id_acto"/>
+        <input type="hidden" id="Id_acto" name='Id_acto'/>
         <div class="form-group">
             <div class="row">
                 <div class="col">

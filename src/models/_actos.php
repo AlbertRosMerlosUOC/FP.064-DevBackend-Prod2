@@ -19,6 +19,7 @@
 
     if(isset($_POST['actualizar_acto'])) {
         // Obtener los datos del formulario
+        $id = $_POST['Id_acto'];
         $fecha = $_POST['Fecha'];
         $hora = $_POST['Hora'];
         $titulo = $_POST['Titulo'];
@@ -29,7 +30,7 @@
 
         // Crear una instancia de la clase Actos y llamar a su método update()
         $actos = new Actos();
-        $actos->update($fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto);
+        $actos->update($id, $fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto);
     }
 
     class Actos {
@@ -67,7 +68,7 @@
         public function update($id, $fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto) {
             try {
                 // Preparar la consulta
-                $stmt = $this->conn->prepare("UPDATE actos SET Fecha = :fecha, Hora = :hora, Titulo = :titulo, Descripcion_corta = :descripcion_c, Descripcion_larga = :descripcion_l, Num_asistentes = :asistentes, Id_tipo_acto = :Id_tipo_acto WHERE Id = :id");
+                $stmt = $this->conn->prepare("UPDATE actos SET Fecha = :fecha, Hora = :hora, Titulo = :titulo, Descripcion_corta = :descripcion_c, Descripcion_larga = :descripcion_l, Num_asistentes = :asistentes, Id_tipo_acto = :Id_tipo_acto WHERE Id_acto = :id");
 
                 // Bind parameters
                 $stmt->bindParam(':id', $id);
