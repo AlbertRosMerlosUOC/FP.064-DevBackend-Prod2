@@ -1,6 +1,6 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/models/Acto.php';
-    
+
     class ActoCo {
         private $conn;
 

@@ -4,6 +4,8 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
     $action = 'actoUpdate';
     $actionText = 'Guardar';
+    $botonNombre = "actualizar_acto";
+
 ?>
 
 <!DOCTYPE html>

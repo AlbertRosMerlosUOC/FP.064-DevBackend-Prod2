@@ -2,7 +2,7 @@
 
     $username = "root";
     $password = "Login";
-    $database = "Word";
+    $database = "LoginP2";
 
     try {
         $conn = new PDO("mysql:host=mysql;dbname=$database;charset=utf8mb4", 

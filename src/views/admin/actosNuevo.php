@@ -4,6 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
     $action = 'actoInsert';
     $actionText = 'Crear';
+    $botonNombre = "crear_acto";
 ?>
 
 <!DOCTYPE html>

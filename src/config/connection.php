@@ -3,7 +3,7 @@
         $host = 'mysql';
         $username = "root";
         $password = "Login";
-        $database = "Word";
+        $database = "LoginP2";
         $url = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 
     try {

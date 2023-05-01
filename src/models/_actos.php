@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     require '../config/database.php';
 
     if(isset($_POST['crear_acto'])) {
@@ -20,7 +19,6 @@
 
     if(isset($_POST['actualizar_acto'])) {
         // Obtener los datos del formulario
-        $id = $_POST['Id'];
         $fecha = $_POST['Fecha'];
         $hora = $_POST['Hora'];
         $titulo = $_POST['Titulo'];
@@ -31,7 +29,7 @@
 
         // Crear una instancia de la clase Actos y llamar a su método update()
         $actos = new Actos();
-        $actos->update($id, $fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto);
+        $actos->update($fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto);
     }
 
     class Actos {
