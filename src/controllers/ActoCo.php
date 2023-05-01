@@ -37,7 +37,8 @@
                 VALUES (:fecha, :hora, :titulo, :descripcion_c, :descripcion_l, :asistentes, :Id_tipo_acto)");
 
                 $stmt->bindParam(':fecha', $fecha);
-                $stmt->bindParam(':hora', $hora . ':00');
+                $hora_completa = $hora . ':00';
+                $stmt->bindParam(':hora', $hora_completa);
                 $stmt->bindParam(':titulo', $titulo);
                 $stmt->bindParam(':descripcion_c', $descripcion_c);
                 $stmt->bindParam(':descripcion_l', $descripcion_l);
@@ -45,9 +46,12 @@
                 $stmt->bindParam(':Id_tipo_acto', $Id_tipo_acto);
 
                 $stmt->execute();
-                echo "Acto guardado correctamente en la base de datos.";
+                $id_insertado = $this->conn->lastInsertId();
+                $_SESSION['estadoAccion'] = 'ok';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_insertado);
             } catch(PDOException $e) {
-                echo "Error: " . $e->getMessage();
+                $_SESSION['estadoAccion'] = 'ko';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
             }
         }
 
@@ -57,7 +61,8 @@
 
                 $stmt->bindParam(':id_acto', $id_acto);
                 $stmt->bindParam(':fecha', $fecha);
-                $stmt->bindParam(':hora', $hora . ':00');
+                $hora_completa = $hora . ':00';
+                $stmt->bindParam(':hora', $hora_completa);
                 $stmt->bindParam(':titulo', $titulo);
                 $stmt->bindParam(':descripcion_c', $descripcion_c);
                 $stmt->bindParam(':descripcion_l', $descripcion_l);
@@ -65,9 +70,11 @@
                 $stmt->bindParam(':Id_tipo_acto', $Id_tipo_acto);
 
                 $stmt->execute();
-                echo "Acto actualizado correctamente en la base de datos.";
+                $_SESSION['estadoAccion'] = 'ok';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
             } catch(PDOException $e) {
-                echo "Error: " . $e->getMessage();
+                $_SESSION['estadoAccion'] = 'ko';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
             }
         }
     }

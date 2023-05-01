@@ -29,6 +29,13 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        public function getByTipo($Id_tipo) {
+            $stmt = $this->conn->prepare("SELECT Id_persona, CONCAT_WS(' ', Apellido1, Apellido2, CONCAT(',', Nombre)) AS Nombre_completo FROM personas WHERE Id_tipo_usuario = :id_tipo");
+            $stmt->bindParam(':id_tipo', $Id_tipo);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
         
         public function insert($nombre, $apellido1, $apellido2, $user, $email, $password, $id_tipo_usuario) {
             try {
