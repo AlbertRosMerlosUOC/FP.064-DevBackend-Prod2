@@ -2,6 +2,7 @@
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/ActoCo.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/PersonaActoCo.php';
 
     if (isset($_POST['insert']) || isset($_POST['update'])) {
         $id = $_POST['Id_acto'] ?? null;
@@ -26,5 +27,12 @@
         $id = $_POST['Id_acto'];
         $actoCo = new ActoCo($conn);
         $actoCo->delete($id);
+    }
+
+    if(isset($_POST['ponentes'])) {
+        $id = $_POST['Id_acto'];
+        $id_ponentes = $_POST['Ponentes'];
+        $personaActoCo = new PersonaActoCo($conn);
+        $personaActoCo->updatePonentesActo($id, $id_ponentes);
     }
 ?>
