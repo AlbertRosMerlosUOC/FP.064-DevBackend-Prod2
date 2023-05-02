@@ -35,7 +35,7 @@
 
     if(isset($_POST['eliminar_acto'])) {
         // Obtener los datos del formulario
-        $id = $_POST['Id_acto'];
+        $id = intval($_POST['Id_acto']);
 
         // Crear una instancia de la clase Actos y llamar a su método delete()
         $actos = new Actos();

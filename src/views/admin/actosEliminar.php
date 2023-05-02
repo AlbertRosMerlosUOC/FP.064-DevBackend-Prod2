@@ -2,9 +2,11 @@
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/models/Acto.php';
     $action = 'actoUpdate';
     $actionText = 'Guardar';
     $botonNombre = "actualizar_acto";
+    $id = intval($_GET['id']);
 
 ?>
 
@@ -19,6 +21,7 @@
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/header.php' ?>
         <h1 style="margin-bottom: 15px;">Borrar acto</h1>
         <form action="/models/_actos.php" method="POST">
+            <input type="hidden" id="Id_acto" name='Id_acto' value = "<?php echo $id; ?>">
             <button type="submit" class="btn btn-danger" name ="eliminar_acto">Borrar</button>
         </form>
     </body>
