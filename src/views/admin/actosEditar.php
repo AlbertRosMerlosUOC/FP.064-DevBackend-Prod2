@@ -26,11 +26,15 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="ponentes-tab" data-bs-toggle="tab" data-bs-target="#ponentes" type="button" role="tab" aria-controls="ponentes" aria-selected="false">Ponentes</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="inscritos-tab" data-bs-toggle="tab" data-bs-target="#inscritos" type="button" role="tab" aria-controls="inscritos" aria-selected="false">Inscripciones</button>
+                        </li>
                     </ul>
                 </div>
                 <div class="tab-content clearfix formulario-datos" style="width: 576px;" id="actosTabContent">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/actosForm.php' ?>
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/actosPonentes.php' ?>
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/actosInscritos.php' ?>
                 </div>
             </div>
         </div>

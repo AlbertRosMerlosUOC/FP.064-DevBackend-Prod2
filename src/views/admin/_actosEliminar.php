@@ -22,7 +22,7 @@
         <h1 style="margin-bottom: 15px;">Borrar acto</h1>
         <form action="/php/actosFormAccion.php" method="POST">
             <input type="hidden" id="Id_acto" name='Id_acto' value = "<?php echo $id; ?>">
-            <button type="submit" class="btn btn-danger" name ="eliminar_acto">Borrar</button>
+            <button type="submit" class="btn btn-danger" name ="delete">Borrar</button>
         </form>
     </body>
 </html>

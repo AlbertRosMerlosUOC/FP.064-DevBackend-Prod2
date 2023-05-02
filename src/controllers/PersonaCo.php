@@ -30,8 +30,9 @@
             }
         }
 
+        // TODO Modificar la Query para que recoja los ponentes que no están inscritos como asistentes normales
         public function getByTipo($Id_tipo) {
-            $stmt = $this->conn->prepare("SELECT Id_persona, CONCAT_WS(' ', Apellido1, Apellido2, CONCAT(',', Nombre)) AS Nombre_completo FROM personas WHERE Id_tipo_usuario = :id_tipo");
+            $stmt = $this->conn->prepare("SELECT Id_persona, CONCAT(CONCAT_WS(' ', Apellido1, Apellido2), CONCAT(', ', Nombre)) AS Nombre_completo FROM personas WHERE Id_tipo_usuario = :id_tipo");
             $stmt->bindParam(':id_tipo', $Id_tipo);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
