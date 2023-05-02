@@ -22,11 +22,8 @@
         }
     }
 
-    if(isset($_POST['eliminar_acto'])) {
-        // Obtener los datos del formulario
+    if(isset($_POST['delete'])) {
         $id = $_POST['Id_acto'];
-
-        // Crear una instancia de la clase Actos y llamar a su método delete()
         $actoCo = new ActoCo($conn);
         $actoCo->delete($id);
     }

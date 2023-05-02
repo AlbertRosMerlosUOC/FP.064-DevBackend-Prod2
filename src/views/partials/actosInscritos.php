@@ -1,21 +1,13 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/PersonaCo.php';
-    $personaCo = new PersonaCo($conn);
-    $usuariosPonentes = $personaCo->getByTipo('3');
 ?>
-<div class="tab-pane" id="ponentes" role="tabpanel" aria-labelledby="ponentes-tab">
+<div class="tab-pane" id="inscritos" role="tabpanel" aria-labelledby="inscritos-tab">
     <form action="/php/actosFormAccion.php" method="POST" style="width: 450px;">
         <div class="form-group">
-            <label class="form-label" for="Descripcion_corta">Ponentes&nbsp;<span class="required" title="Campo requerido">*</span></label>
+            <label class="form-label" for="Descripcion_corta">Inscripciones</label>
             <select class="form-control" id="Id_tipo_acto" name="Id_tipo_acto" required multiple size="24">
-                <?php
-                    foreach ($usuariosPonentes as $reg) {
-                        echo '<option value="' . $reg['Id_persona'] . '">' . $reg['Nombre_completo'] . '</option>';
-                    }
-                ?>
+                
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" name="ponentes">Guardar</button>
         <button type="button" class="btn btn-danger" onclick="volver()">Volver</button>
     </form>
 </div>

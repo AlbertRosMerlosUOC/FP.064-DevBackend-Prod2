@@ -80,17 +80,14 @@
 
         public function delete($id) {
             try {
-                // Preparar la consulta
                 $stmt = $this->conn->prepare("DELETE FROM actos WHERE Id_acto = :id");
-
-                // Bind parameters
                 $stmt->bindParam(':id', $id);
-
-                // Ejecutar la consulta
                 $stmt->execute();
-                echo "Acto eliminado correctamente de la base de datos.";
+                $_SESSION['estadoAccion'] = 'ok';
+                header("Location: /views/actos.php");
             } catch(PDOException $e) {
-                echo "Error: " . $e->getMessage();
+                $_SESSION['estadoAccion'] = 'ko';
+                header("Location: /views/actos.php");
             }
         }
     }
