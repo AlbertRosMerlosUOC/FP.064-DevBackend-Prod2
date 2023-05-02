@@ -27,7 +27,7 @@
         $id = $_POST['Id_acto'];
 
         // Crear una instancia de la clase Actos y llamar a su método delete()
-        $actos = new Actos();
-        $actos->delete($id);
+        $actoCo = new ActoCo($conn);
+        $actoCo->delete($id);
     }
 ?>

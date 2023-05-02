@@ -77,5 +77,21 @@
                 header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
             }
         }
+
+        public function delete($id) {
+            try {
+                // Preparar la consulta
+                $stmt = $this->conn->prepare("DELETE FROM actos WHERE Id_acto = :id");
+
+                // Bind parameters
+                $stmt->bindParam(':id', $id);
+
+                // Ejecutar la consulta
+                $stmt->execute();
+                echo "Acto eliminado correctamente de la base de datos.";
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
     }
 ?>
