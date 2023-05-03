@@ -6,7 +6,7 @@
 
 
 <div class="section">
-    <nav class="navbar navbar-expand-sm bg-body-tertiary">
+    <nav class="navbar navbar-expand-sm bg-body-secondary">
         <div class="container-fluid" style="width: 80%;">
             <a class="navbar-brand" href="/views/main.php">DevBackend</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBar" aria-controls="navBar" aria-expanded="false" aria-label="Toggle navigation">
