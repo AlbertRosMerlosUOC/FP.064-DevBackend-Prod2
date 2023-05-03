@@ -12,7 +12,7 @@
     <body>
         <?php if (!empty($user)): ?>
             <br>¡Bienvenid@  <?= $user['User']; ?>!
-            <br>Ya estás correctamente loginad@. Si quieres salir, puedes hacer <a href="php/logout.php">logout</a>
+            <br>Ya estás correctamente loginad@. Accede a la <a href="/views/main.php">aplicación</a> o, si quieres salir, puedes hacer <a href="/php/logout.php">logout</a>
         <?php else: ?>
             <h1>Por favor, accede o crea un usuario:</h1>
             <a href="login.php">Login</a> o

@@ -22,13 +22,13 @@
                                         <ul class=\"dropdown-menu\">
                                             <li><a class=\"dropdown-item\" href=\"/views/actos.php\">Actos</a></li>
                                             <li><a class=\"dropdown-item\" href=\"/views/usuarios.php\">Usuarios</a></li>
-                                            <li><a class=\"dropdown-item\" href=\"/views/usuarios.php\">Tipos de actos</a></li>
+                                            <li><a class=\"dropdown-item\" href=\"/views/tipos-actos.php\">Tipos de actos</a></li>
                                         </ul>
                                     </li>");
                         }
                     ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/actos.php">Calendario de actos</a>
+                        <a class="nav-link" href="/views/calendario.php">Calendario de actos</a>
                     </li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
                     <?= $user->getNombre() . ' ' . $user->getApellido1() . ' ' . $user->getApellido2() ?>
                 </a>
                 <ul class="dropdown-menu text-small">
-                    <li class="d-flex align-items-center"><i class="fa fa-user fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/php/profile.php" style="padding-left: 5px !important;">Perfil</a></li>
+                    <li class="d-flex align-items-center"><i class="fa fa-user fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/views/profile.php" style="padding-left: 5px !important;">Perfil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li class="d-flex align-items-center"><i class="fa fa-sign-out fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/php/logout.php" style="padding-left: 5px !important;">Cerrar sesión</a></li>
                 </ul>

@@ -5,7 +5,7 @@ body{
     text-align: center;
 }
 
-.formLogin > input[type="text"], 
+/* .formLogin > input[type="text"], 
 .formLogin > input[type="password"] {
     outline: none;
     padding: 20px;
@@ -33,7 +33,7 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background: #00b8eb;
     transition: .6s;
-}
+} */
 
 header{
     border-bottom: 2px solid #797474;
