@@ -14,6 +14,13 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function getAllByDate($fecha) {
+            $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, TIME_FORMAT(Hora, '%H:%i') Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Fecha = :fecha");
+            $stmt->bindParam(':fecha', $fecha);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function getById($id_acto) {
             try {
                 $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, TIME_FORMAT(Hora, '%H:%i') Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Id_acto = :id_acto");
