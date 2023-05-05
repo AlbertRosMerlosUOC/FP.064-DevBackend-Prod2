@@ -38,7 +38,7 @@
                     <?= $user->getNombre() . ' ' . $user->getApellido1() . ' ' . $user->getApellido2() ?>
                 </a>
                 <ul class="dropdown-menu text-small">
-                    <li class="d-flex align-items-center"><i class="fa fa-user fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/views/profile.php" style="padding-left: 5px !important;">Perfil</a></li>
+                    <li class="d-flex align-items-center"><i class="fa fa-user fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/views/profile.php?id=<?php echo $user->getId_persona(); ?>"style="padding-left: 5px !important;">Perfil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li class="d-flex align-items-center"><i class="fa fa-sign-out fa-1" style="margin-left: 10px;"></i>&nbsp;<a class="dropdown-item" href="/php/logout.php" style="padding-left: 5px !important;">Cerrar sesión</a></li>
                 </ul>
