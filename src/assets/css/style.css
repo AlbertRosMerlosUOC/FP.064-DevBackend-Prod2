@@ -111,3 +111,23 @@ a.nav-link.active {
     border-bottom-left-radius: 6px; 
     border-bottom-right-radius: 6px;
 }
+
+.formulario-datos-completo {
+    margin-top: 25px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border: 1px solid #dee2e6; 
+    padding: 20px; 
+    border-radius: 6px; 
+}
+
+.form-profile {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+.form-profile .form-floating:focus-within {
+    z-index: 2;
+}

@@ -8,8 +8,9 @@
         private $Email;
         private $Password;
         private $Id_tipo_usuario;
+        private $Anonimo;
 
-        public function __construct($Id_persona, $Nombre, $Apellido1, $Apellido2, $User, $Email, $Password, $Id_tipo_usuario) {
+        public function __construct($Id_persona, $Nombre, $Apellido1, $Apellido2, $User, $Email, $Password, $Id_tipo_usuario, $Anonimo) {
             $this->Id_persona = $Id_persona;
             $this->Nombre = $Nombre;
             $this->Apellido1 = $Apellido1;
@@ -18,6 +19,7 @@
             $this->Email = $Email;
             $this->Password = $Password;
             $this->Id_tipo_usuario = $Id_tipo_usuario;
+            $this->Anonimo = $Anonimo;
         }
 
         public function getId_persona() {
@@ -82,6 +84,14 @@
     
         public function setId_tipo_usuario($Id_tipo_usuario) {
             $this->Id_tipo_usuario = $Id_tipo_usuario;
+        }
+    
+        public function getAnonimo() {
+            return $this->Anonimo;
+        }
+    
+        public function setAnonimo($Anonimo) {
+            $this->Anonimo = $Anonimo;
         }
     }
 ?>

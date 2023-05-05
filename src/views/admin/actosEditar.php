@@ -7,8 +7,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
     <head>
         <title>Edición de acto</title>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/partials/includes.php' ?>
