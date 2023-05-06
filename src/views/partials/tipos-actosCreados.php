@@ -1,10 +1,10 @@
 <?php
     // TODO
 ?>
-<div class="tab-pane" id="inscritos" role="tabpanel" aria-labelledby="inscritos-tab">
-    <form action="/php/actosFormAccion.php" method="POST" style="width: 450px;">
+<div class="tab-pane" id="actos" role="tabpanel" aria-labelledby="actos-tab">
+    <form action="/php/tipos-actosFormAccion.php" method="POST" style="width: 450px;">
         <div class="form-group">
-            <label class="form-label" for="Descripcion_corta">Inscripciones</label>
+            <label class="form-label" for="Actos">Actos</label>
             <select class="form-control" id="Id_tipo_acto" name="Id_tipo_acto" required multiple size="24">
                 
             </select>

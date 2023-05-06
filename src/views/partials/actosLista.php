@@ -51,7 +51,7 @@
                                         }
                                     } else {
                                         echo "<tr>
-                                                <td colspan='8'>No existen actos creados</td>
+                                                <td colspan='7'>No existen actos creados</td>
                                             </tr>";
                                     }
                                 ?>

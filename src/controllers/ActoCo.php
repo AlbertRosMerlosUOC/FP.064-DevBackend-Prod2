@@ -36,7 +36,6 @@
                 echo "Error: " . $e->getMessage();
             }
         }
-        
 
         public function insert($fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto) {
             try {

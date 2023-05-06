@@ -1,6 +1,5 @@
 <?php
     if(!empty($_POST['User']) && !empty($_POST['password'])):
-        // TODO Recoger datos de PersonaCo
         $records = $conn->prepare('SELECT Id_persona, User, password, Id_tipo_usuario FROM personas WHERE User=:User');
         $records->bindParam(':User', $_POST['User']);
         $records->execute();

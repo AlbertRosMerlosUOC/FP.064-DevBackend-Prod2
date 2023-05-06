@@ -152,4 +152,8 @@ a.nav-link.active {
 
 input[readonly] {
     background-color: #f2f2f2;
-  }
+}
+
+td {
+    vertical-align: middle;
+}

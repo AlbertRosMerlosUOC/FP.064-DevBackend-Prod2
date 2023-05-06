@@ -9,7 +9,7 @@
         }
     
         public function getId_tipo_acto() {
-            return $this->Id_acto;
+            return $this->Id_tipo_acto;
         }
     
         public function getDescripcion() {
