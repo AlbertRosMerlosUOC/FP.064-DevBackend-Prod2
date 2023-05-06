@@ -9,7 +9,7 @@
         }
 
         public function getAll() {
-            $stmt = $this->conn->prepare("SELECT Id_tipo_usuario, Descripcion FROM tipos_usuarios");
+            $stmt = $this->conn->prepare("SELECT Id_tipo_usuario, Descripcion FROM tipos_usuarios ORDER BY Descripcion");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }

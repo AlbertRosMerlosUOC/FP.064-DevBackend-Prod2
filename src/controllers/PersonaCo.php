@@ -9,7 +9,7 @@
         }
 
         public function getAll() {
-            $stmt = $this->conn->prepare("SELECT Id_persona, Nombre, Apellido1, Apellido2, User, Email, Password, Id_tipo_usuario, Anonimo FROM personas");
+            $stmt = $this->conn->prepare("SELECT pe.Id_persona, pe.Nombre, pe.Apellido1, pe.Apellido2, pe.User, pe.Email, pe.Password, pe.Id_tipo_usuario, tu.Descripcion Tipo_usuario, pe.Anonimo FROM personas pe JOIN tipos_usuarios tu ON tu.Id_tipo_usuario = pe.Id_tipo_usuario ORDER BY Apellido1, Apellido2, Nombre, User");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -49,10 +49,12 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         
-        public function insert($nombre, $apellido1, $apellido2, $user, $email, $password, $id_tipo_usuario) {
+        public function insert($nombre, $apellido1, $apellido2, $user, $email, $id_tipo_usuario) {
             try {
+                $password = password_hash('a', PASSWORD_BCRYPT);
+                $anonimo = '0';
                 $stmt = $this->conn->prepare("INSERT INTO personas (Nombre, Apellido1, Apellido2, User, Email, Password, Id_tipo_usuario, Anonimo) 
-                VALUES (:nombre, :apellido1, :apellido2, :user, :email, :password, :id_tipo_usuario, 0)");
+                VALUES (:nombre, :apellido1, :apellido2, :user, :email, :password, :id_tipo_usuario, :anonimo)");
 
                 $stmt->bindParam(':nombre', $nombre);
                 $stmt->bindParam(':apellido1', $apellido1);
@@ -61,23 +63,27 @@
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':password', $password);
                 $stmt->bindParam(':id_tipo_usuario', $id_tipo_usuario);
+                $stmt->bindParam(':anonimo', $anonimo);
 
                 $stmt->execute();
-                echo "Persona guardada correctamente en la base de datos.";
+                $id_insertado = $this->conn->lastInsertId();
+                $_SESSION['estadoAccion'] = 'ok';
+                header("Location: /views/admin/usuariosEditar.php?id=" . $id_insertado);
             } catch(PDOException $e) {
+                $_SESSION['estadoAccion'] = 'ko';
                 echo "Error: " . $e->getMessage();
+                // header("Location: /views/admin/usuariosNuevo.php");
             }
         }
 
         public function update($id_persona, $nombre, $apellido1, $apellido2, $email, $password, $id_tipo_usuario, $anonimo) {
             try {
-                $stmt = $this->conn->prepare("UPDATE personas SET Nombre = :nombre, Apellido1 = :apellido1, Apellido2 = :apellido2, Email = :email, Anonimo = :anonimo WHERE Id_persona = :id_persona");
+                $stmt = $this->conn->prepare("UPDATE personas SET Nombre = :nombre, Apellido1 = :apellido1, Apellido2 = :apellido2, Email = :email WHERE Id_persona = :id_persona");
                 $stmt->bindParam(':id_persona', $id_persona);
                 $stmt->bindParam(':nombre', $nombre);
                 $stmt->bindParam(':apellido1', $apellido1);
                 $stmt->bindParam(':apellido2', $apellido2);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':anonimo', $anonimo);
                 $stmt->execute();
 
                 if (!empty($password)) {
@@ -87,11 +93,18 @@
                     $stm2->execute();
                 }
 
-                if (!empty($id_tipo_usuario)) {
-                    $stm3 = $this->conn->prepare("UPDATE personas SET Id_tipo_usuario = :id_tipo_usuario WHERE Id_persona = :id_persona");
+                if (($anonimo == '1') || ($anonimo == '0')) {
+                    $stm3 = $this->conn->prepare("UPDATE personas SET Anonimo = :anonimo WHERE Id_persona = :id_persona");
                     $stm3->bindParam(':id_persona', $id_persona);
-                    $stm3->bindParam(':id_tipo_usuario', $id_tipo_usuario);
+                    $stm3->bindParam(':anonimo', $anonimo);
                     $stm3->execute();
+                }
+
+                if (!empty($id_tipo_usuario)) {
+                    $stm4 = $this->conn->prepare("UPDATE personas SET Id_tipo_usuario = :id_tipo_usuario WHERE Id_persona = :id_persona");
+                    $stm4->bindParam(':id_persona', $id_persona);
+                    $stm4->bindParam(':id_tipo_usuario', $id_tipo_usuario);
+                    $stm4->execute();
                 }
 
                 $_SESSION['estadoAccion'] = 'ok';
@@ -107,6 +120,23 @@
                 } else {
                     header("Location: /views/admin/usuariosEditar.php?id=" . $id_persona);
                 }
+            }
+        }
+
+        public function delete($id) {
+            try {
+                $stmt1 = $this->conn->prepare("DELETE FROM personas_actos WHERE Id_persona = :id");
+                $stmt1->bindParam(':id', $id);
+                $stmt1->execute();
+
+                $stmt2 = $this->conn->prepare("DELETE FROM personas WHERE Id_persona = :id");
+                $stmt2->bindParam(':id', $id);
+                $stmt2->execute();
+                $_SESSION['estadoAccion'] = 'ok';
+                header("Location: /views/usuarios.php");
+            } catch(PDOException $e) {
+                $_SESSION['estadoAccion'] = 'ko';
+                header("Location: /views/usuarios.php");
             }
         }
     }

@@ -137,3 +137,19 @@ a.nav-link.active {
     overflow: auto;
     max-height: 650px;
 }
+
+.tipoUsuario1 {
+    color: red;
+}
+
+.tipoUsuario2 {
+    color: blue;
+}
+
+.tipoUsuario3 {
+    color: goldenrod;
+}
+
+input[readonly] {
+    background-color: #f2f2f2;
+  }

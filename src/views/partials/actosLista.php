@@ -17,10 +17,10 @@
         </thead>
         <thead style="background-color: #E9ECEF;">
             <tr>
-                <th scope="col" width="80px">#</th>
+                <th scope="col" width="65px">#</th>
                 <th scope="col" width="125px">Fecha</th>
                 <th scope="col" width="100px">Hora</th>
-                <th scope="col" width="225px">Titulo</th>
+                <th scope="col" width="240px">Titulo</th>
                 <th scope="col" width="400px">Descripción</th>
                 <th scope="col" width="150px">Nº asistentes</th>
                 <th scope="col" width="*">Acciones</th>
@@ -36,10 +36,10 @@
                                     if (count($actos) > 0) {
                                         foreach ($actos as $reg) {
                                             echo "<tr style=\"padding: 0px; margin: 0px;\">
-                                                    <td width=\"80px\">". $reg["Id_acto"] . "</th>
+                                                    <td width=\"65px\">". $reg["Id_acto"] . "</th>
                                                     <td width=\"125px\">". date('d/m/Y', strtotime($reg['Fecha'])) . "</td>
                                                     <td width=\"100px\">". $reg['Hora'] . "</td>
-                                                    <td width=\"225\" align='left'>". $reg['Titulo'] . "</td>
+                                                    <td width=\"240px\" align='left'>". $reg['Titulo'] . "</td>
                                                     <td width=\"400px\" align='left'>". $reg['Descripcion_corta'] . "</td>
                                                     <td width=\"150px\">". $reg['Num_asistentes'] . "</td>
                                                     <td width=\"*\">
