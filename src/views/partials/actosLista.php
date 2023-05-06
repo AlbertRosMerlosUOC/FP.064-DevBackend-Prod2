@@ -8,7 +8,7 @@
 ?>
 
 <div class="px-3 py-5" style="width: 100%; display: flex; justify-content: center; align-items: center;">
-    <table class="table table-hover" style="width: 70%;">
+    <table class="table" style="width: 70%;">
         <thead>
             <tr>
                 <td align="left" colspan="6"><h1 class="pb-2 border-bottom" style="text-align: left;">Gestión de actos</h1></td>
@@ -17,39 +17,49 @@
         </thead>
         <thead style="background-color: #E9ECEF;">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Titulo</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Nº asistentes</th>
-                <th scope="col">Acciones</th>
+                <th scope="col" width="80px">#</th>
+                <th scope="col" width="125px">Fecha</th>
+                <th scope="col" width="100px">Hora</th>
+                <th scope="col" width="225px">Titulo</th>
+                <th scope="col" width="400px">Descripción</th>
+                <th scope="col" width="150px">Nº asistentes</th>
+                <th scope="col" width="*">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-                if (count($actos) > 0) {
-                    foreach ($actos as $reg) {
-                        echo "<tr>
-                                <td>". $reg["Id_acto"] . "</th>
-                                <td>". $reg['Fecha'] . "</td>
-                                <td>". $reg['Hora'] . "</td>
-                                <td align='left'>". $reg['Titulo'] . "</td>
-                                <td align='left'>". $reg['Descripcion_corta'] . "</td>
-                                <td>". $reg['Num_asistentes'] . "</td>
-                                <td>
-                                    <button class=\"btn btn-primary\" onclick='editarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-edit fa-lg\"></i></button>
-                                    <button class=\"btn btn-danger\" onclick='eliminarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-trash-o fa-lg\"></i></button>
+            <tr>
+                <td colspan="7" style="padding: 0px !important;">
+                    <div class="div-listado" style="width: 100%;">
+                        <table class="table table-hover" style="width: 100%;">
+                            <tbody>
+                                <?php
+                                    if (count($actos) > 0) {
+                                        foreach ($actos as $reg) {
+                                            echo "<tr style=\"padding: 0px; margin: 0px;\">
+                                                    <td width=\"80px\">". $reg["Id_acto"] . "</th>
+                                                    <td width=\"125px\">". $reg['Fecha'] . "</td>
+                                                    <td width=\"100px\">". $reg['Hora'] . "</td>
+                                                    <td width=\"225\" align='left'>". $reg['Titulo'] . "</td>
+                                                    <td width=\"400px\" align='left'>". $reg['Descripcion_corta'] . "</td>
+                                                    <td width=\"150px\">". $reg['Num_asistentes'] . "</td>
+                                                    <td width=\"*\">
+                                                        <button class=\"btn btn-primary\" onclick='editarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-edit fa-lg\"></i></button>
+                                                        <button class=\"btn btn-danger\" onclick='eliminarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-trash-o fa-lg\"></i></button>
 
-                                </td>
-                            </tr>";
-                    }
-                } else {
-                    echo "<tr>
-                            <td colspan='8'>No existen actos creados</td>
-                        </tr>";
-                }
-            ?>
+                                                    </td>
+                                                </tr>";
+                                        }
+                                    } else {
+                                        echo "<tr>
+                                                <td colspan='8'>No existen actos creados</td>
+                                            </tr>";
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -64,7 +74,7 @@
             <div class="modal-body">
                 <p>¿Estás seguro que quieres borrar este acto y todos sus participantes y ponentes asociados?</p>
                 <form action="/php/actosFormAccion.php" method="POST">
-                    <input type="" id="Id_acto" name="Id_acto" value=""/>
+                    <input type="hidden" id="Id_acto" name="Id_acto" value=""/>
                     <button type="button" class="btn btn-primary" id="cancelDelete">Cancelar</button>
                     <button type="submit" class="btn btn-danger" id="deleteActo" name ="delete">Eliminar</button>
                 </form>

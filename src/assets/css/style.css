@@ -3,6 +3,7 @@ body{
     padding:0;
     font-family:  'Shantell Sans', cursive;
     text-align: center;
+    overflow: hidden;
 }
 
 /* .formLogin > input[type="text"], 
@@ -130,4 +131,9 @@ a.nav-link.active {
 }
 .form-profile .form-floating:focus-within {
     z-index: 2;
+}
+
+.div-listado {
+    overflow: auto;
+    max-height: 650px;
 }
