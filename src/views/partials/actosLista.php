@@ -37,7 +37,7 @@
                                         foreach ($actos as $reg) {
                                             echo "<tr style=\"padding: 0px; margin: 0px;\">
                                                     <td width=\"80px\">". $reg["Id_acto"] . "</th>
-                                                    <td width=\"125px\">". $reg['Fecha'] . "</td>
+                                                    <td width=\"125px\">". date('d/m/Y', strtotime($reg['Fecha'])) . "</td>
                                                     <td width=\"100px\">". $reg['Hora'] . "</td>
                                                     <td width=\"225\" align='left'>". $reg['Titulo'] . "</td>
                                                     <td width=\"400px\" align='left'>". $reg['Descripcion_corta'] . "</td>
