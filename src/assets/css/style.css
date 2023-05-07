@@ -1,7 +1,7 @@
 body{
     margin:0;
     padding:0;
-    font-family:  'Shantell Sans', cursive;
+    font-family: 'Lato', 'Shantell Sans', cursive;
     text-align: center;
     overflow: hidden;
 }
@@ -161,4 +161,8 @@ td {
 .actoPonente {
     font-weight: bold;
     color: goldenrod;
+}
+
+.filtroFecha {
+    width: 190px;
 }

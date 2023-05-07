@@ -4,7 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
     <head>
         <title>Gestor de eventos DevBackend</title>
@@ -50,14 +50,6 @@
                         <h4 class="fw-bold mb-0">Calendario de actos</h4>
                         <p>Buscador de actos disponibles para la inscripción como asistente.</p>
                     </div>
-                </div>
-                <div>
-                    <h4 class="fw-bold mb-0">Calendario de actos por días</h4>
-                    <form action="/php/getActoDias.php" method="POST" id="buscarDia">
-                        <label for="fecha">Buscar por día:</label>
-                        <input type="date" id="fecha" name="fecha">
-                        <button type="submit" name = "buscar">Buscar</button>
-                    </form>
                 </div>
             </div>
         </div>

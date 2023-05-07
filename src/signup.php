@@ -46,7 +46,7 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Enviar</button>
                 <p class="mt-3">¿Ya estás registrad@? Inicia sesión <a href="login.php">aquí</a></p>
-                <p class="mt-4 mb-3 text-muted">DevBackend &copy; 2023</p>
+                <p class="mt-4 mb-3 text-muted"><span style="font-family: 'Shantell Sans';">DevBackend</span> &copy; 2023</p>
             </form>
         </main>
     </body>

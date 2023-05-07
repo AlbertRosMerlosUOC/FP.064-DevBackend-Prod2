@@ -8,7 +8,7 @@
             <table class="mt-1 table" style="font-size: 14px;">
                 <thead style="background-color: #E9ECEF;">
                     <tr>
-                        <th scope="col" width="370px" style="text-align: center;">Nombre y apellidos</th>
+                        <th scope="col" width="370px" style="text-align: left;">Nombre y apellidos</th>
                         <th scope="col" width="*">Acciones</th>
                     </tr>
                 </thead>

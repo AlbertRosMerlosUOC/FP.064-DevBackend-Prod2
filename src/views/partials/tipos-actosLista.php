@@ -18,7 +18,7 @@
         <thead style="background-color: #E9ECEF;">
             <tr>
                 <th scope="col" width="65px" style="padding-left: 150px;">#</th>
-                <th scope="col" width="*">Descripción</th>
+                <th scope="col" width="*" style="padding-left: 45px;text-align: left;">Descripción</th>
                 <th scope="col" width="240px" style="padding-right: 150px;">Acciones</th>
             </tr>
         </thead>

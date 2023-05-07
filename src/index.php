@@ -12,7 +12,7 @@
     </head>
     <body>
         <main class="form-signin" style="max-width: 450px !important;">
-            <h1 class="mb-3">DevBackend</h1>
+            <h1 class="mb-3"><span style="font-family: 'Shantell Sans';">DevBackend</span></h1>
             <div class="form-floating">
                 <?php if (!empty($user)): ?>
                     ¡Bienvenid@  <?= $user['User']; ?>!<br/>

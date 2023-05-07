@@ -21,6 +21,21 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function getFiltered($tDate, $fDate, $id_persona) {
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, ac.Num_asistentes, ac.Id_tipo_acto, ( SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0 ) Num_inscritos, (SELECT pa.Ponente FROM personas_actos pa WHERE pa.Id_persona = :id_persona AND pa.Id_acto = ac.Id_acto) Rol 
+                                            FROM actos ac 
+                                           WHERE (
+                                                  (:tDate = '1' AND ac.Fecha = :fDate) OR
+                                                  (:tDate = '2' AND YEARWEEK(ac.Fecha, '%x-%v') = YEARWEEK(STR_TO_DATE(CONCAT(REPLACE(:fDate, 'W', ''), '-1'), '%x-%v-%w'), '%x-%v')) OR
+                                                  (:tDate = '3' AND DATE_FORMAT(ac.Fecha, '%Y-%m') = :fDate))
+                                        ORDER BY ac.Fecha DESC , ac.Hora DESC");
+            $stmt->bindParam(':tDate', $tDate);
+            $stmt->bindParam(':fDate', $fDate);
+            $stmt->bindParam(':id_persona', $id_persona);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function getById($id_acto) {
             try {
                 $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, TIME_FORMAT(Hora, '%H:%i') Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Id_acto = :id_acto");

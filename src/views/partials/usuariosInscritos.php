@@ -10,7 +10,7 @@
                     <tr>
                         <th scope="col" width="100px" style="text-align: center;">Fecha</th>
                         <th scope="col" width="100px" style="text-align: center;">Hora</th>
-                        <th scope="col" width="*" style="text-align: center;">Titulo</th>
+                        <th scope="col" width="*" style="text-align: left;">Titulo</th>
                     </tr>
                 </thead>
                 <tbody>
