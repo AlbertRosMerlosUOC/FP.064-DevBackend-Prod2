@@ -37,24 +37,24 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getPonentesEnActo($Id_acto) {
+        public function getPonentesEnActo($id_acto) {
             $stmt = $this->conn->prepare("SELECT pe.Id_persona, CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) AS Nombre_completo, 
                                                  (SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_persona = pe.Id_persona AND pa.Id_acto = :id_acto AND pa.Ponente = 1) En_acto 
                                             FROM personas pe 
                                            WHERE pe.Id_tipo_usuario = 3 
                                              AND pe.Id_persona NOT IN (SELECT px.Id_persona FROM personas_actos px WHERE px.Id_acto = :id_acto AND px.Ponente = 0) 
                                         ORDER BY 2;");
-            $stmt->bindParam(':id_acto', $Id_acto);
+            $stmt->bindParam(':id_acto', $id_acto);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getInscritosEnActo($Id_acto) {
-            $stmt = $this->conn->prepare("SELECT pe.Id_persona, CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) AS Nombre_completo, pe.Anonimo
-                                            FROM personas pe JOIN personas_actos pa ON pe.Id_persona = pa.Id_persona
-                                           WHERE pa.Id_acto = :id_acto AND pa.Ponente = 0 
-                                        ORDER BY 2;");
-            $stmt->bindParam(':id_acto', $Id_acto);
+        public function getActosInscritos($id_persona) {
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, pa.Ponente
+                                            FROM actos ac JOIN personas_actos pa ON ac.Id_acto = pa.Id_acto
+                                           WHERE pa.Id_persona = :id_persona 
+                                        ORDER BY ac.Fecha DESC, ac.Hora DESC;");
+            $stmt->bindParam(':id_persona', $id_persona);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }

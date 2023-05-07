@@ -37,6 +37,16 @@
             }
         }
 
+        public function getInscritosEnActo($Id_acto) {
+            $stmt = $this->conn->prepare("SELECT pe.Id_persona, CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) AS Nombre_completo, pe.Anonimo
+                                            FROM personas pe JOIN personas_actos pa ON pe.Id_persona = pa.Id_persona
+                                           WHERE pa.Id_acto = :id_acto AND pa.Ponente = 0 
+                                        ORDER BY 2;");
+            $stmt->bindParam(':id_acto', $Id_acto);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function insert($fecha, $hora, $titulo, $descripcion_c, $descripcion_l, $asistentes, $Id_tipo_acto) {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO actos (Fecha, Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto) 

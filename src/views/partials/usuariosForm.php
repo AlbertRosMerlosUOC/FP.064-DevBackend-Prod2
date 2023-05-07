@@ -3,6 +3,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/models/TipoUsuario.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/PersonaCo.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/TipoUsuarioCo.php';
+    $personaCo = new PersonaCo($conn);
     $tipoUsuarioCo = new TipoUsuarioCo($conn);
     $tiposUsuarios = $tipoUsuarioCo->getAll();
 ?>

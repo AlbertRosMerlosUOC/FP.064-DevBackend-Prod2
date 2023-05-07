@@ -157,3 +157,8 @@ input[readonly] {
 td {
     vertical-align: middle;
 }
+
+.actoPonente {
+    font-weight: bold;
+    color: goldenrod;
+}

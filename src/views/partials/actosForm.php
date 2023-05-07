@@ -4,6 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/ActoCo.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/TipoActoCo.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/PersonaCo.php';
+    $actoCo = new ActoCo($conn);
     $personaCo = new PersonaCo($conn);
     $tipoActoCo = new TipoActoCo($conn);
     $tiposActos = $tipoActoCo->getAll();

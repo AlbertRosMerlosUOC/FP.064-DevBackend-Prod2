@@ -1,5 +1,5 @@
 <?php
-    $usuariosInscritos = $personaCo->getInscritosEnActo($_GET['id']);
+    $usuariosInscritos = $actoCo->getInscritosEnActo($_GET['id']);
 ?>
 <div class="tab-pane" id="inscritos" role="tabpanel" aria-labelledby="inscritos-tab">
     <form action="/php/actosFormAccion.php" method="POST" style="width: 450px;">

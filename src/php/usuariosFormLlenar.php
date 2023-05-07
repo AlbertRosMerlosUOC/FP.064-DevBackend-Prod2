@@ -1,6 +1,5 @@
 <?php
     $id_persona = $_GET['id'];
-    $personaCo = new PersonaCo($conn);
     $persona = $personaCo->getById($id_persona);
 
     if ($persona) {
