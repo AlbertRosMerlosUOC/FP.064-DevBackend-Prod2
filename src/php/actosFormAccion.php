@@ -35,4 +35,11 @@
         $personaActoCo = new PersonaActoCo($conn);
         $personaActoCo->updatePonentesActo($id, $id_ponentes);
     }
+
+    if(isset($_POST['deleteInscrito'])) {
+        $id_acto = $_POST['Id_acto'];
+        $id_persona = $_POST['Id_persona'];
+        $personaActoCo = new PersonaActoCo($conn);
+        $personaActoCo->deleteInscrito($id_acto, $id_persona);
+    }
 ?>

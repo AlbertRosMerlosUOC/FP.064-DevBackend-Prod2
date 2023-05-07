@@ -1,13 +1,11 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/PersonaCo.php';
-    $personaCo = new PersonaCo($conn);
-    $usuariosPonentes = $personaCo->getPonenteEnActo($_GET['id']);
+    $usuariosPonentes = $personaCo->getPonentesEnActo($_GET['id']);
 ?>
 <div class="tab-pane" id="ponentes" role="tabpanel" aria-labelledby="ponentes-tab">
     <form action="/php/actosFormAccion.php" method="POST" style="width: 450px;">
         <input type="hidden" id="Id_acto" name="Id_acto" value="<?php echo $_GET['id'] ?>"/>
         <div class="form-group">
-            <label class="form-label" for="Descripcion_corta">Ponentes&nbsp;<span class="required" title="Campo requerido">*</span></label>
+            <label class="form-label" for="Ponentes">Ponentes&nbsp;<span class="required" title="Campo requerido">*</span></label>
             <select class="form-control" id="Ponentes" name="Ponentes[]" required multiple size="24">
                 <?php
                     foreach ($usuariosPonentes as $reg) {

@@ -28,5 +28,19 @@
                 header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
             }
         }
+
+        public function deleteInscrito($id_acto, $id_persona) {
+            try {
+                $stmt = $this->conn->prepare("DELETE FROM personas_actos WHERE Id_acto = :id_acto AND Id_persona = :id_persona");
+                $stmt->bindParam(':id_acto', $id_acto);
+                $stmt->bindParam(':id_persona', $id_persona);
+                $stmt->execute();
+                $_SESSION['estadoAccionInscrito'] = 'ok';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
+            } catch(PDOException $e) {
+                $_SESSION['estadoAccionInscrito'] = 'ko';
+                header("Location: /views/admin/actosEditar.php?id=" . $id_acto);
+            }
+        }
     }
 ?>
