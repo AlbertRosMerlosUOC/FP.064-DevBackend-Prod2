@@ -1,6 +1,7 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/models/TipoActo.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/TipoActoCo.php';
+    $tipoActoCo = new TipoActoCo($conn);
 ?>
 <div class="tab-pane show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
     <form action="/php/tipos-actosFormAccion.php" method="POST" style="width: 450px;">

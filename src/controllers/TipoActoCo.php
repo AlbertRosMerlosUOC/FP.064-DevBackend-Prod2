@@ -30,6 +30,16 @@
             }
         }
 
+        public function getActosCreados($id_tipo_acto) {
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo
+                                            FROM actos ac JOIN tipo_acto ta ON ac.Id_tipo_acto = ta.Id_tipo_acto
+                                           WHERE ta.Id_tipo_acto = :id_tipo_acto 
+                                        ORDER BY ac.Fecha DESC, ac.Hora DESC;");
+            $stmt->bindParam(':id_tipo_acto', $id_tipo_acto);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function insert($descripcion) {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO tipo_acto (Descripcion) 

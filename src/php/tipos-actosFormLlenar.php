@@ -1,6 +1,5 @@
 <?php
     $id_tipo_acto = $_GET['id'];
-    $tipoActoCo = new TipoActoCo($conn);
     $tipoActo = $tipoActoCo->getById($id_tipo_acto);
 
     if ($tipoActo) {
