@@ -7,7 +7,7 @@
     $fDate = $_GET['fDate'] ?? null;
     $actos = $actoCo->getFiltered($tDate, $fDate, $id_persona);
   } else {
-    $actos = $actoCo->getAll();
+    $actos = $actoCo->getNonFiltered($id_persona);
   }
 ?>
 

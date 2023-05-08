@@ -9,28 +9,52 @@
         }
 
         public function getAll() {
-            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, ac.Num_asistentes, ac.Id_tipo_acto, (SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0) Num_inscritos FROM actos ac ORDER BY ac.Fecha DESC, ac.Hora DESC");
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, ac.Num_asistentes, ac.Id_tipo_acto, 
+                                                 (SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0) Num_inscritos,
+                                                 ta.Descripcion Tipo_acto 
+                                            FROM actos ac 
+                                            JOIN tipo_acto ta ON ta.Id_tipo_acto = ac.Id_tipo_acto
+                                        ORDER BY ac.Fecha DESC, ac.Hora DESC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getAllByDate($fecha) {
-            $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, TIME_FORMAT(Hora, '%H:%i') Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Fecha = :fecha");
-            $stmt->bindParam(':fecha', $fecha);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        // TODO DELETE
+        // public function getAllByDate($fecha) {
+        //     $stmt = $this->conn->prepare("SELECT Id_acto, Fecha, TIME_FORMAT(Hora, '%H:%i') Hora, Titulo, Descripcion_corta, Descripcion_larga, Num_asistentes, Id_tipo_acto FROM actos WHERE Fecha = :fecha");
+        //     $stmt->bindParam(':fecha', $fecha);
+        //     $stmt->execute();
+        //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // }
 
         public function getFiltered($tDate, $fDate, $id_persona) {
-            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, ac.Num_asistentes, ac.Id_tipo_acto, ( SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0 ) Num_inscritos, (SELECT pa.Ponente FROM personas_actos pa WHERE pa.Id_persona = :id_persona AND pa.Id_acto = ac.Id_acto) Rol 
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, 
+                                                 ac.Num_asistentes, ac.Id_tipo_acto, (SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0 ) Num_inscritos, 
+                                                 (SELECT pa.Ponente FROM personas_actos pa WHERE pa.Id_persona = :id_persona AND pa.Id_acto = ac.Id_acto) Rol,
+                                                 ta.Descripcion Tipo_acto 
                                             FROM actos ac 
+                                            JOIN tipo_acto ta ON ta.Id_tipo_acto = ac.Id_tipo_acto
                                            WHERE (
                                                   (:tDate = '1' AND ac.Fecha = :fDate) OR
                                                   (:tDate = '2' AND YEARWEEK(ac.Fecha, '%x-%v') = YEARWEEK(STR_TO_DATE(CONCAT(REPLACE(:fDate, 'W', ''), '-1'), '%x-%v-%w'), '%x-%v')) OR
-                                                  (:tDate = '3' AND DATE_FORMAT(ac.Fecha, '%Y-%m') = :fDate))
+                                                  (:tDate = '3' AND DATE_FORMAT(ac.Fecha, '%Y-%m') = :fDate)
+                                                 )
                                         ORDER BY ac.Fecha DESC , ac.Hora DESC");
             $stmt->bindParam(':tDate', $tDate);
             $stmt->bindParam(':fDate', $fDate);
+            $stmt->bindParam(':id_persona', $id_persona);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getNonFiltered($id_persona) {
+            $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, ac.Descripcion_corta, ac.Descripcion_larga, 
+                                                 ac.Num_asistentes, ac.Id_tipo_acto, (SELECT COUNT(*) FROM personas_actos pa WHERE pa.Id_acto = ac.Id_acto AND pa.Ponente = 0 ) Num_inscritos, 
+                                                 (SELECT pa.Ponente FROM personas_actos pa WHERE pa.Id_persona = :id_persona AND pa.Id_acto = ac.Id_acto) Rol,
+                                                 ta.Descripcion Tipo_acto 
+                                            FROM actos ac 
+                                            JOIN tipo_acto ta ON ta.Id_tipo_acto = ac.Id_tipo_acto
+                                        ORDER BY ac.Fecha DESC, ac.Hora DESC");
             $stmt->bindParam(':id_persona', $id_persona);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -56,7 +80,17 @@
             $stmt = $this->conn->prepare("SELECT pe.Id_persona, CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) AS Nombre_completo, pe.Anonimo
                                             FROM personas pe JOIN personas_actos pa ON pe.Id_persona = pa.Id_persona
                                            WHERE pa.Id_acto = :id_acto AND pa.Ponente = 0 
-                                        ORDER BY 2;");
+                                        ORDER BY 2");
+            $stmt->bindParam(':id_acto', $Id_acto);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getInscritosAnonimizado($Id_acto) {
+            $stmt = $this->conn->prepare("SELECT pe.Id_persona, CASE WHEN pe.Anonimo = 0 THEN CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) ELSE 'Usuario anónimo' END AS Nombre_completo, pe.Anonimo
+                                            FROM personas pe JOIN personas_actos pa ON pe.Id_persona = pa.Id_persona
+                                           WHERE pa.Id_acto = :id_acto AND pa.Ponente = 0 
+                                        ORDER BY 2");
             $stmt->bindParam(':id_acto', $Id_acto);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

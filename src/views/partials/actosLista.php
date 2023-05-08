@@ -11,25 +11,26 @@
     <table class="table" style="width: 70%;">
         <thead>
             <tr>
-                <td align="left" colspan="7"><h1 class="pb-2 border-bottom" style="text-align: left;">Gestión de actos</h1></td>
+                <td align="left" colspan="8"><h1 class="pb-2 border-bottom" style="text-align: left;">Gestión de actos</h1></td>
                 <td><a href="/views/admin/actosNuevo.php"><button class="btn btn-success"><i class="fa fa-plus fa-lg"></i>&nbsp;Crear acto</button></a></td>
             </tr>
         </thead>
         <thead style="background-color: #E9ECEF;">
             <tr>
-                <th scope="col" width="65px">#</th>
-                <th scope="col" width="125px">Fecha</th>
-                <th scope="col" width="100px">Hora</th>
-                <th scope="col" width="240px" style="text-align: left;">Titulo</th>
-                <th scope="col" width="350px" style="text-align: left;">Descripción</th>
-                <th scope="col" width="120px">Nº asistentes</th>
-                <th scope="col" width="120px">Nº inscritos</th>
+                <th scope="col" width="60px">#</th>
+                <th scope="col" width="110px">Fecha</th>
+                <th scope="col" width="80px">Hora</th>
+                <th scope="col" width="190px" style="text-align: left;">Tipo</th>
+                <th scope="col" width="200px" style="text-align: left;">Titulo</th>
+                <th scope="col" width="320px" style="text-align: left;">Descripción</th>
+                <th scope="col" width="110px">Nº asistentes</th>
+                <th scope="col" width="110px">Nº inscritos</th>
                 <th scope="col" width="*">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td colspan="8" style="padding: 0px !important;">
+                <td colspan="9" style="padding: 0px !important;">
                     <div class="div-listado" style="width: 100%;">
                         <table class="table table-hover" style="width: 100%;">
                             <tbody>
@@ -37,23 +38,23 @@
                                     if (count($actos) > 0) {
                                         foreach ($actos as $reg) {
                                             echo "<tr style=\"padding: 0px; margin: 0px;\">
-                                                    <td width=\"65px\">". $reg["Id_acto"] . "</th>
-                                                    <td width=\"125px\">". date('d/m/Y', strtotime($reg['Fecha'])) . "</td>
-                                                    <td width=\"100px\">". $reg['Hora'] . "</td>
-                                                    <td width=\"240px\" align='left'>". $reg['Titulo'] . "</td>
-                                                    <td width=\"350px\" align='left'>". $reg['Descripcion_corta'] . "</td>
-                                                    <td width=\"120px\">". $reg['Num_asistentes'] . "</td>
-                                                    <td width=\"120px\">". $reg['Num_inscritos'] . "</td>
+                                                    <td width=\"60px\">". $reg["Id_acto"] . "</th>
+                                                    <td width=\"110px\">". date('d/m/Y', strtotime($reg['Fecha'])) . "</td>
+                                                    <td width=\"80px\">". $reg['Hora'] . "</td>
+                                                    <td width=\"190px\" align='left'>". $reg['Tipo_acto'] . "</td>
+                                                    <td width=\"200px\" align='left'>". $reg['Titulo'] . "</td>
+                                                    <td width=\"320px\" align='left'>". $reg['Descripcion_corta'] . "</td>
+                                                    <td width=\"110px\">". $reg['Num_asistentes'] . "</td>
+                                                    <td width=\"110px\">". $reg['Num_inscritos'] . "</td>
                                                     <td width=\"*\">
                                                         <button class=\"btn btn-primary\" onclick='editarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-edit fa-lg\"></i></button>
                                                         <button class=\"btn btn-danger\" onclick='eliminarActo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-trash-o fa-lg\"></i></button>
-
                                                     </td>
                                                 </tr>";
                                         }
                                     } else {
                                         echo "<tr>
-                                                <td colspan='8'>No existen actos creados</td>
+                                                <td colspan='9'>No existen actos creados</td>
                                             </tr>";
                                     }
                                 ?>

@@ -14,7 +14,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2" style="padding: 0px !important;">
+                        <td colspan="2" style="padding: 0px !important; border-bottom: 0px !important;">
                             <div class="div-listado" style="width: 100%; max-height: 475px !important;">
                                 <table class="table table-hover" style="width: 100%;">
                                     <tbody>

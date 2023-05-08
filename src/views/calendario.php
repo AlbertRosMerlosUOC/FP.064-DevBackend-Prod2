@@ -4,7 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/php/initUser.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/models/Acto.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/controllers/ActoCo.php';
-    // TODO 1. filtro por dia, semana y mes. 2. permitir inscribirse o desinscribirse (solo si no eres ponente). 3. ver si eres ponente o no. 4. acceder a la ficha de un acto, donde se vera lo mismo que acto pero con la lista de asistentes anonimizada
+    // TODO 1. permitir inscribirse o desinscribirse (solo si no eres ponente). 2. ver si eres ponente o no. 3. acceder a la ficha de un acto, donde se vera lo mismo que acto pero con la lista de asistentes anonimizada
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -166,3 +166,11 @@ td {
 .filtroFecha {
     width: 190px;
 }
+
+.acto-rol1 {
+    background-color: #ffcc80aa;
+}
+
+.acto-rol0 {
+    background-color: #81D4FAaa;
+}
