@@ -36,8 +36,8 @@
                 <th scope="col" width="110px">Fecha</th>
                 <th scope="col" width="80px">Hora</th>
                 <th scope="col" width="190px" style="text-align: left;">Tipo</th>
-                <th scope="col" width="200px" style="text-align: left;">Titulo</th>
-                <th scope="col" width="320px" style="text-align: left;">Descripción</th>
+                <th scope="col" width="190px" style="text-align: left;">Titulo</th>
+                <th scope="col" width="300px" style="text-align: left;">Descripción</th>
                 <th scope="col" width="110px">Nº asistentes</th>
                 <th scope="col" width="110px">Nº inscritos</th>
                 <th scope="col" width="*">Acciones</th>
@@ -57,23 +57,24 @@
                                                         <td width=\"110px\">". date('d/m/Y', strtotime($reg['Fecha'])) . "</td>
                                                         <td width=\"80px\">". $reg['Hora'] . "</td>
                                                         <td width=\"190px\" align='left'>". $reg['Tipo_acto'] . "</td>
-                                                        <td width=\"200px\" align='left'>". $reg['Titulo'] . "</td>
-                                                        <td width=\"320px\" align='left'>". $reg['Descripcion_corta'] . "</td>
+                                                        <td width=\"190px\" align='left'>". $reg['Titulo'] . "</td>
+                                                        <td width=\"300px\" align='left'>". $reg['Descripcion_corta'] . "</td>
                                                         <td width=\"110px\">". $reg['Num_asistentes'] . "</td>
                                                         <td width=\"110px\">". $reg['Num_inscritos'] . "</td>
-                                                        <td width=\"*\">";
+                                                        <td width=\"*\" class=\"tdBtnAcciones\">
+                                                            <button class=\"btn btn-info\" onclick='getInfo(" . $reg["Id_acto"] . ")'><i class=\"fa fa-info-circle fa-1\"></i></button>";
 
                                             if ($reg['Rol'] == '0' || $reg['Rol'] == '1') {
                                                 if ($reg['Rol'] == '0') {
-                                                    $fila .= "<button class=\"btn btn-danger\" onclick='inscribir(\"B\", " . $reg["Id_acto"] . ")'><i class=\"fa fa-user-times fa-2\"></i></button>";
+                                                    $fila .= "&nbsp;<button class=\"btn btn-danger\" onclick='inscribir(\"B\", " . $reg["Id_acto"] . ")'><i class=\"fa fa-user-times fa-1\"></i></button>";
                                                 } else {
-                                                    $fila .= "<button class=\"btn btn-secondary\" onclick='return;'><i class=\"fa fa-user-times fa-2\"></i></button>";
+                                                    $fila .= "&nbsp;<button class=\"btn btn-secondary\" onclick='return;'><i class=\"fa fa-user-times fa-1\"></i></button>";
                                                 }
                                             } else {
                                                 if ($reg['Num_asistentes'] == $reg['Num_inscritos']) {
-                                                    $fila .= "<button class=\"btn btn-secondary\" onclick='return;'><i class=\"fa fa-user-plus fa-2\"></i></button>";
+                                                    $fila .= "&nbsp;<button class=\"btn btn-secondary\" onclick='return;'><i class=\"fa fa-user-plus fa-1\"></i></button>";
                                                 } else {
-                                                    $fila .= "<button class=\"btn btn-success\" onclick='inscribir(\"A\", " . $reg["Id_acto"] . ")'><i class=\"fa fa-user-plus fa-2\"></i></button>";
+                                                    $fila .= "&nbsp;<button class=\"btn btn-success\" onclick='inscribir(\"A\", " . $reg["Id_acto"] . ")'><i class=\"fa fa-user-plus fa-1\"></i></button>";
                                                 }
                                             }
 
@@ -101,6 +102,19 @@
             </tr>
         </tbody>
     </table>
+</div>
+
+<div class="modal fade" id="modalInformacion" tabindex="1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Información del acto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="informacion-body">
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="modalInscribir" tabindex="1" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -182,7 +196,7 @@
         }
     }
 
-    function inscribir (tipo, id) {
+    function inscribir(tipo, id) {
         document.getElementById('Tipo_accion').value = tipo;
         document.getElementById('Id_acto').value = id;
         var botonAccion = document.getElementById("inscribirActoButton");
@@ -209,7 +223,8 @@
         modal.show();
     }
 
-    function goAccion() {var xhr = new XMLHttpRequest();
+    function goAccion() {
+        var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200) {
@@ -222,6 +237,25 @@
         xhr.open("GET", "/php/calendarioFormAccion.php?id_acto=" + document.getElementById('Id_acto').value + 
                                                      "&id_persona=" + document.getElementById('Id_persona').value + 
                                                      "&accion=" + document.getElementById('Tipo_accion').value, true);
+        xhr.send();
+    }
+
+    function getInfo(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status == 200) {
+                    document.getElementById("informacion-body").innerHTML = xhr.responseText;
+                    const modal = new bootstrap.Modal(document.getElementById('modalInformacion'), {
+                        keyboard: false
+                    });
+                    modal.show();
+                } else {
+                    alert("Error al obtener los datos");
+                }
+            }
+        };
+        xhr.open("GET", "/php/calendarioInformacion.php?id=" + id, true);
         xhr.send();
     }
 

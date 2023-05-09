@@ -68,6 +68,20 @@
             }
         }
 
+        public function getByIdRow($id_acto) {
+            try {
+                $stmt = $this->conn->prepare("SELECT ac.Id_acto, ac.Fecha, TIME_FORMAT(ac.Hora, '%H:%i') Hora, ac.Titulo, 
+                                                     ac.Descripcion_corta, ac.Descripcion_larga, ac.Num_asistentes, ac.Id_tipo_acto, 
+                                                     (SELECT ta.Descripcion FROM tipo_acto ta WHERE ta.Id_tipo_acto = ac.Id_tipo_acto) Tipo_acto
+                                                FROM actos ac WHERE ac.Id_acto = :id_acto");
+                $stmt->bindParam(':id_acto', $id_acto);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         public function getInscritosEnActo($Id_acto) {
             $stmt = $this->conn->prepare("SELECT pe.Id_persona, CONCAT(CONCAT_WS(' ', pe.Apellido1, pe.Apellido2), CONCAT(', ', pe.Nombre)) AS Nombre_completo, pe.Anonimo
                                             FROM personas pe JOIN personas_actos pa ON pe.Id_persona = pa.Id_persona
