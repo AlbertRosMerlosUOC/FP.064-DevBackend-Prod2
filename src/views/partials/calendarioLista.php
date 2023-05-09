@@ -103,19 +103,21 @@
     </table>
 </div>
 
-<div class="modal fade" id="modalActoDelete" tabindex="1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalInscribir" tabindex="1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Eliminar acto</h5>
+                <h5 class="modal-title" id="inscribirActoTitulo"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro que quieres borrar este acto y todos sus participantes y ponentes asociados?</p>
+                <p id="inscribirActoText"></p>
                 <form action="/php/actosFormAccion.php" method="POST">
                     <input type="hidden" id="Id_acto" name="Id_acto" value=""/>
-                    <button type="button" class="btn btn-primary" id="cancelDelete">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" id="deleteActo" name ="delete">Eliminar</button>
+                    <input type="hidden" id="Id_persona" name="Id_persona" value="<?php echo $id_persona; ?>"/>
+                    <input type="hidden" id="Tipo_accion" name="Tipo_accion" value=""/>
+                    <button type="button" class="btn btn-primary" id="cancelInscribir">Cancelar</button>
+                    <button type="button" class="btn" id="inscribirActoButton" name ="inscribirActo" onclick="goAccion();"></button>
                 </form>
             </div>
         </div>
@@ -180,26 +182,60 @@
         }
     }
 
-    function getInscritos(id) {
-        // const modal = new bootstrap.Modal(document.getElementById('modalInscritos'), {
-        //     keyboard: false
-        // });
-        // modal.show();
-        console.log('1')
-        var xhr = new XMLHttpRequest();
-        console.log('2')
+    function inscribir (tipo, id) {
+        document.getElementById('Tipo_accion').value = tipo;
+        document.getElementById('Id_acto').value = id;
+        var botonAccion = document.getElementById("inscribirActoButton");
+        if (tipo == 'A') {
+            document.getElementById("inscribirActoTitulo").innerHTML = "Inscripción en acto";
+            document.getElementById("inscribirActoText").innerHTML = "¿Te quieres inscribir en este acto?";
+            botonAccion.classList.remove("btn-danger");
+            botonAccion.classList.add("btn-success");
+            botonAccion.innerHTML = "Inscribirme";
+        } else {
+            document.getElementById("inscribirActoTitulo").innerHTML = "Desinscripción de acto";
+            document.getElementById("inscribirActoText").innerHTML = "¿Te quieres desinscribir de este acto?";
+            botonAccion.classList.remove("btn-success");
+            botonAccion.classList.add("btn-danger");
+            botonAccion.innerHTML = "Desinscribirme";
+        }
+        const modal = new bootstrap.Modal(document.getElementById('modalInscribir'), {
+            keyboard: false
+        });
+        const cancelarBtn = document.getElementById('cancelInscribir');
+        cancelarBtn.addEventListener('click', () => {
+            modal.hide();
+        });
+        modal.show();
+    }
+
+    function goAccion() {var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-        console.log('3')
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status == 200) {
+                    location.reload(true);
+                } else {
+                    alert("Error al obtener los datos");
+                }
+            }
+        };
+        xhr.open("GET", "/php/calendarioFormAccion.php?id_acto=" + document.getElementById('Id_acto').value + 
+                                                     "&id_persona=" + document.getElementById('Id_persona').value + 
+                                                     "&accion=" + document.getElementById('Tipo_accion').value, true);
+        xhr.send();
+    }
+
+    function getInscritos(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200) {
                     document.getElementById("inscritos-body").innerHTML = xhr.responseText;
-                    // abrir el modal
                     const modal = new bootstrap.Modal(document.getElementById('modalInscritos'), {
                         keyboard: false
                     });
                     modal.show();
                 } else {
-                    // si la llamada AJAX falló, mostrar un mensaje de error
                     alert("Error al obtener los datos");
                 }
             }
@@ -218,15 +254,19 @@
     }
 
     $estadoAccion = $_SESSION['estadoAccion'] ?? null;
+    $tipoAccion = $_SESSION['tipoAccion'] ?? null;
     if ($estadoAccion) {
         $class = '';
         $mensaje = '';
+        $texto = '';
         if ($estadoAccion == 'ok') {
             $class = 'text-bg-success';
-            $mensaje = 'Acto eliminado correctamente';
+            $mensaje = ($tipoAccion == 'A' ? 'Inscripción correcta' : 'Desinscripción correcta');
+            $texto = ($tipoAccion == 'A' ? 'Te has inscrito correctamente al acto.' : 'Te has desinscrito correctamente del acto.');
         } else if ($estadoAccion == 'ko') {
             $class = 'text-bg-danger';
-            $mensaje = 'Error en la eliminación del acto';
+            $mensaje = ($tipoAccion == 'A' ? 'Error en la inscripción' : 'Error en la desinscripción');
+            $texto = ($tipoAccion == 'A' ? 'Ha habido un error al inscribirte al acto.' : 'Ha habido un error al desinscribirte del acto.');
         }
         echo '<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                 <div id="liveToast" class="toast '.$class.'" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
@@ -235,7 +275,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body">
-                        '.($estadoAccion == 'ok' ? 'Acto eliminado correctamente de la base de datos.' : 'El acto no se ha podido eliminar de la base de datos.').'
+                        '. $texto .'
                     </div>
                 </div>
             </div>';
@@ -248,5 +288,6 @@
                 }, 5000);
                 </script>';
         unset($_SESSION['estadoAccion']);
+        unset($_SESSION['tipoAccion']);
     }
 ?>
