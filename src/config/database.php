@@ -1,15 +1,15 @@
 <?php
     /* Configuración local */
-    // $host = "mysql";
-    // $username = "root";
-    // $password = "Login";
-    // $database = "Word";
+    $host = "mysql";
+    $username = "root";
+    $password = "Login";
+    $database = "Word";
 
     /* Configuración AWS */
-    $host = "localhost";
-    $username = "wordpress1";
-    $password = "DWD8Ds3l4dvXpjZH";
-    $database = "wordpress1";
+    // $host = "localhost";
+    // $username = "wordpress1";
+    // $password = "DWD8Ds3l4dvXpjZH";
+    // $database = "wordpress1";
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4",

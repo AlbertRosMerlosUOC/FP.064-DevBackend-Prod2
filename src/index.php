@@ -21,7 +21,6 @@
                     <p class="mt-3">¿Ya estás registrad@? Inicia sesión <a href="login.php">aquí</a></p>
                     <p class="mt-3">¿No tienes usuario? Regístrate <a href="signup.php">aquí</a></p>
                 <?php endif; ?>
-                <p style="padding-top: 50px;font-size: small;"><b><u>Nota al consultor:</b></u> El producto subido al AWS no es funcional ya que estamos utilizando el parámetro <b><i>$_SERVER['DOCUMENT_ROOT']</b></i> y no es compatible con AWS. Procuraremos dejar una versión estable y refactorizada del producto para que pueda ser evaluada también desde este servidor. No obstante, el producto es 100% funcional en un contenedor en local utilizando el archivo <b><i>docker-compose</b></i> del producto.</p>
             </div>
         </main>
     </body>
